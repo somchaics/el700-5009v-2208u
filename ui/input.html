@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <!--<link type="text/css" rel="stylesheet" href="css/core.css" media="all" />-->
+    <script type="text/javascript" src="/ui/jquery-1.12.4.min.js"></script>
+    <!--<script type="text/javascript" src="js/radio.js"></script>-->
+
+    <style>
+        /*textbox*/
+       .input::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #0f1041;
+        }
+      
+        .input-content {
+            position: relative;
+            /*padding: 44px 55px;*/
+            background: #fff;
+            z-index: 10;
+        }
+    
+         .inputbox {
+               /*margin-top :-30px;*/
+         }
+
+        .inputbox-title {
+            /*width: 100px;*/
+            text-align: right;
+        }
+
+        .input-content .inputbox-content {
+            position: relative;
+            width: 100%;
+            /*margin-left:150px;*/
+        }
+
+        .input-content .inputbox-content input {
+             width: 100%;
+             height: 30px;
+             box-sizing: border-box;
+             line-height: 30px;
+             font-size: 14px;
+             border: 0;
+             background: none;
+             border-bottom: 1px solid #ccc;
+             outline: none;
+             border-radius: 0;
+             -webkit-appearance: none;
+         }
+
+         .input-content .inputbox-content input:focus ~ label,
+         .input-content .inputbox-content input:valid ~ label {
+               color: #2962ff;
+               transform: translateY(-20px);
+               font-size: 0.825em;
+               cursor: default;
+         }
+
+         .input-content .inputbox-content input:focus ~ .underline {
+              width: 100%;
+         }
+
+         .input-content .inputbox-content label {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 30px;
+                line-height: 30px;
+                color: #ccc;
+                cursor: text;
+                transition: all 200ms ease-out;
+                z-index: 10;
+         }        
+
+         .input-content .inputbox-content .underline {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    bottom: -1px;
+                    left: 0;
+                    width: 0;
+                    height: 2px;
+                    background: #2962ff;
+                    transition: all 200ms ease-out;
+         }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .input-content input:invalid {
+            border: 0;
+            background: none;
+            border-bottom: 1px solid red;
+            outline: none;
+        }
+        .input-content input:valid {
+            border: 0;
+            background: none;
+            border-bottom: 1px solid #ccc;
+            outline: none;
+        }
+
+      
+
+    </style>
+    <script>
+        
+        //function f_change() {
+          
+        $(document).ready(function () {
+        //    $('#id-r1').radio({  checked: false, group : 'g1' });
+        //    $('#id-r2').radio({ checked: true, group : 'g1'  });
+            var el = document.getElementById("id-01");
+           
+         });
+    </script>
+</head>
+<body>
+    <div class="input-content">
+        <div class="inputbox-title" style="width:150px;">Input Text :</div>
+        <dl class="inputbox" id="id-01" style="width: 100px; margin-top: -25px;">
+            <dd class="inputbox-content" style="margin-left: 160px;">
+                <input id="input0" type="text" required maxlength="10" />
+                <label for="input0">ID</label>
+                <span class="underline"></span>
+            </dd>
+        </dl>
+
+        <div class="inputbox-title" style="width:150px;">Input Password :</div>
+        <dl class="inputbox" style="width: 300px; margin-top: -25px;">
+            <dd class="inputbox-content" style="margin-left:160px;">
+                <input id="input1" type="password" required />
+                <!-- <label for="input1">Password</label>-->
+                <span class="underline"></span>
+            </dd>
+        </dl>
+
+        <div class="inputbox-title" style="width:150px;">Administrator :</div>
+        <dl class="inputbox" style="width: 200px; margin-top: -25px;">
+            <dd class="inputbox-content" style="margin-left:160px;">
+                <input id="input2" type="text" required />
+                <!-- <label for="input0">ID</label>-->
+                <span class="underline"></span>
+            </dd>
+        </dl>
+
+        <div class="inputbox-title" style="width:150px;">Date :</div>
+        <dl class="inputbox" style="width: 100px; margin-top: -25px;">
+            <dd class="inputbox-content" style="margin-left:160px;">
+                <input id="input" type="date"  required style="text-align:center;" />
+                <!-- <label for="input0">ID</label>-->
+                <span class="underline"></span>
+            </dd>
+        </dl>
+
+        <div class="inputbox-title" style="width:150px;">Time :</div>
+        <dl class="inputbox" style="width: 100px; margin-top: -25px;">
+            <dd class="inputbox-content" style="margin-left:160px;">
+                <input id="input3" type="time" value="00:00" required style="text-align:center;" />
+                <!-- <label for="input0">ID</label>-->
+                <span class="underline"></span>
+            </dd>
+        </dl>
+
+        <div class="inputbox-title" style="width:150px;">No :</div>
+        <dl class="inputbox" style="width: 100px; margin-top: -25px;">
+            <dd class="inputbox-content" style="margin-left:160px;">
+                <input id="input4" type="number" min="0" max="999" value="0" placeholder="0" required style="text-align:right;" />
+                <!-- <label for="input0">ID</label>-->
+                <span class="underline"></span>
+            </dd>
+        </dl>
+
+        <div class="inputbox-title" style="width:150px;">email :</div>
+        <dl class="inputbox" style="width: 200px; margin-top: -25px;">
+            <dd class="inputbox-content" style="margin-left:160px;">
+                <input id="input5" type="email" required />
+                <!-- <label for="input0">ID</label>-->
+                <span class="underline"></span>
+            </dd>
+        </dl>
+
+        
+
+    </div>
+
+    
+
+        <br />
+
+        <button type="button">ok</button>
+</body>
+</html>

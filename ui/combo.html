@@ -1,0 +1,217 @@
+﻿<!--<!DOCTYPE html>-->
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript" src="/ui/jquery-1.12.4.min.js"></script>
+    <style>
+        .combobox {
+            position: relative;
+            display: inline-block;
+            background-color: transparent;
+            height: 26px;
+            border-bottom: 1px solid #b6ff00;
+        }
+
+            .combobox input {
+                /*border: 1px solid transparent;*/
+                border: none;
+                padding: 4px;
+                font-size: 14px;
+                outline: none;
+            }
+
+                .combobox input[type=text] {
+                    background-color: white;
+                    width: 160px;
+                }
+
+        .combobox span {
+            position: absolute;
+            content: "";
+            top: 10px;
+            right: 10px;
+            width: 0px;
+            height: 0px;
+            border: 6px solid transparent;
+            border-color: #808080 transparent transparent transparent;
+        }
+           
+            .combobox span:hover {
+                cursor: pointer;
+                border-color: DodgerBlue transparent transparent transparent;
+                cursor: pointer;
+            }
+
+        .combobox-items {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            display: none;
+            /*border-bottom: none;
+            border-top: none;*/
+            z-index: 99;
+            /*position the autocomplete items to be the same width as the container:*/
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 200px;
+            overflow: auto;
+            width: 120%;
+        }
+
+        .combobox-items div {
+            padding: 4px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+            border-top: none;
+            height: auto;
+        }
+
+        .combobox-items div:last-child {
+                border-bottom: none;
+        }
+
+        /*when hovering an item:*/
+        .combobox-items div:hover {
+            background-color: #e9e9e9;
+        }
+
+        /*when navigating through the items using the arrow keys:*/
+        .combobox-active {
+            background-color: DodgerBlue !important;
+            color: #ffffff;
+        }
+        .combobox-show {
+            display: block;
+        }
+    </style>
+
+    <script>
+        function combobox_add_data(inp, arr) {
+            a = document.createElement("div");
+            a.setAttribute("id", inp.id + "combobox-list");
+            a.setAttribute("class", "combobox-items");
+            inp.parentNode.appendChild(a);
+            
+            for (i = 0; i < arr.length; i++) {
+                    b = document.createElement("div");
+                    b.innerHTML = arr[i];
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+
+                    b.addEventListener("click", function (e) {
+                        var val  = this.getElementsByTagName("input")[0].value;
+                        inp.value = val;
+                        $(".combobox-items")[0].classList.toggle("combobox-show");
+
+                        var x = document.getElementById(inp.id + "combobox-list");
+                        if (x) {
+                            x = x.getElementsByTagName("div");
+                            
+                            for (var i = 0; i < x.length; i++) {
+                                if (x[i].innerText == val) {
+                                   currentFocus=i;
+                                }
+                                x[i].classList.remove("combobox-active");
+                            }
+                        }
+                        this.classList.add("combobox-active");
+                    });
+                   a.appendChild(b);
+            }
+
+        }
+
+        $(function () {
+
+           $("#myInput").on("keydown", function (e) {
+                var x = document.getElementById(this.id + "combobox-list");
+
+                if (x) x = x.getElementsByTagName("div");
+                if (e.keyCode == 27) {
+                    this.value = '';
+                }
+                if (e.keyCode == 40) {
+                    currentFocus++;
+                    addActive(x);
+
+                    if (currentFocus <= x.length)
+                        x[currentFocus].scrollIntoViewIfNeeded(false);
+
+                } else if (e.keyCode == 38) { //up
+                      currentFocus--;
+                      addActive(x);
+
+                    if (currentFocus >= 0)
+                        x[currentFocus].scrollIntoViewIfNeeded(false);
+
+                } else if (e.keyCode == 13) {
+                    e.preventDefault();
+                    if (currentFocus > -1) {
+                        if (x) x[currentFocus].click();
+                    }
+                }
+            });
+
+        function addActive(x) {
+            if (!x) return false;
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = x.length - 1;
+            if (currentFocus < 0) currentFocus = 0;
+            x[currentFocus].classList.add("combobox-active");
+        }
+        function removeActive(x) {
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("combobox-active");
+            }
+        }
+
+        function combobox_search(value) {
+            var arr = countries;
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].substr(0, value.length).toUpperCase() == value.toUpperCase()) {
+
+                    break;
+                }
+             }
+        }
+
+        $("#myInput").on("input", function (e) {
+             var val = this.value;
+             if (!val) { return false; }
+             combobox_search(val);
+         });
+
+        $(".combobox span").on('click', function (e) {
+             var t = $(".combobox-items")[0].classList.toggle("combobox-show");
+             if (t) $(".combobox input")[0].focus();
+         });
+
+         window.onclick = function (event) {
+                if (!event.target.matches('.combobox') &&
+                    !event.target.matches('input') &&
+                    !event.target.matches('span') &&
+                    !event.target.matches('.combobox-items')) {
+                  
+                    var dropdowns = document.getElementsByClassName("combobox-items");
+                    dropdowns[0].classList.remove('combobox-show');
+                  
+                }
+            }
+     });
+
+     var currentFocus=-1;
+     var countries = ["Afghanistan Albania  Albania Albania", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua & Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia & Herzegovina", "Botswana", "Brazil", "British Virgin Islands", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central Arfrican Republic", "Chad", "Chile", "China", "Colombia", "Congo", "Cook Islands", "Costa Rica", "Cote D Ivoire", "Croatia", "Cuba", "Curacao", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Fiji", "Finland", "France", "French Polynesia", "French West Indies", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauro", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russia", "Rwanda", "Saint Pierre & Miquelon", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "St Kitts & Nevis", "St Lucia", "St Vincent", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor L'Este", "Togo", "Tonga", "Trinidad & Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks & Caicos", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Virgin Islands (US)", "Yemen", "Zambia", "Zimbabwe"];
+
+    $(document).ready(function () {
+            combobox_add_data(document.getElementById("myInput"), countries);
+    });
+    </script>
+</head>
+<body>
+    <div id="ddb" class="combobox" style="width :200px;"><span></span>
+        <input id="myInput" type="text" value="" data-content="" >
+    
+    </div>
+</body>
+</html>

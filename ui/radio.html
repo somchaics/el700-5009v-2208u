@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="css/core.css" media="all" />
+    <script type="text/javascript" src="/ui/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/radio.js"></script>
+    <script>
+
+        function f_change() {
+              //$('#id-pgc').data('progress_circle').progress_change(90);
+              //var t = $('#id-cbx').data('checkbox').get_value();
+            // $('#id-cbx').checkbox('set_value', false);
+            //$('#id-cbx').data('checkbox').set_value(false);
+            var t = $('#id-r1').radio('get_value');
+            var t2 = $('#id-r2').radio('get_value');
+            alert(t +"," + t2);
+        }
+        function f_set() {
+            $('#id-r1').radio('set_value', true);
+        }
+
+        $(document).ready(function () {
+            $('#id-r1').radio({  checked: false, group : 'g1' });
+            $('#id-r2').radio({ checked: true, group : 'g1'  });
+          
+         });
+    </script>
+</head>
+<body>
+    <div style="margin:20px;">
+        <div id="id-r1" style="padding:4px;">Pay</div>
+        <div id="id-r2" style="padding:4px;">Amount</div>
+    </div>
+    <button onclick="f_change();">Change</button>
+    <button onclick="f_set();">Set</button>
+</body>
+</html>

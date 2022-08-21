@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            /* Misc */
+            border: 1px solid #cbd5e0;
+            height: 32rem;
+            width: 100%;
+        }
+
+        .container__top {
+            /* Initially, the left takes 3/4 width */
+            height: 60%;
+            min-height: 10%;
+            /* Misc */
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .resizer {
+            background-color: #cbd5e0;
+            cursor: row-resize;
+            height: 2px;
+            width: 100%;
+        }
+
+        .container__bottom {
+            /* Take the remaining width */
+            flex: 1;
+            min-height: 10%;
+            /* Misc */
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+                const resizer = document.getElementById('dragMe');
+                const topSide  = resizer.previousElementSibling;
+                const bottomSide  = resizer.nextElementSibling;
+
+                // The current position of mouse
+                let x = 0;
+                let y = 0;
+                let topHeight = 0;
+                //let prevSiblingHeight = 0;
+                //let prevSiblingWidth = 0;
+
+                // Handle the mousedown event
+                // that's triggered when user drags the resizer
+            const mouseDownHandler = function (e) {
+                // Get the current mouse position
+                x = e.clientX;
+                y = e.clientY;
+                topHeight = topSide.getBoundingClientRect().height;
+                /* prevSiblingHeight = topHeight;*/
+                resizer.style.backgroundColor = 'darkgray';
+                //prevSiblingWidth = rect.width;
+                     // Attach the listeners to `document`
+                    document.addEventListener('mousemove', mouseMoveHandler);
+                    document.addEventListener('mouseup', mouseUpHandler);
+                };
+
+                const mouseMoveHandler = function (e) {
+                    // How far the mouse has been moved
+                    const dx = e.clientX - x;
+                    const dy = e.clientY - y;
+                    const newtopHeight = ((topHeight + dy) * 100) / resizer.parentNode.getBoundingClientRect().height;
+                    topSide.style.height = newtopHeight + '%';
+                 
+                    //alert(newtopHeight);
+                    topSide.style.userSelect = 'none';
+                    topSide.style.pointerEvents = 'none';
+
+                    bottomSide.style.userSelect = 'none';
+                    bottomSide.style.pointerEvents = 'none';
+                };
+
+                const mouseUpHandler = function () {
+                    resizer.style.backgroundColor = '#cbd5e0';
+           
+                    topSide.style.removeProperty('user-select');
+                    topSide.style.removeProperty('pointer-events');
+
+                    bottomSide.style.removeProperty('user-select');
+                    bottomSide.style.removeProperty('pointer-events');
+
+                    // Remove the handlers of `mousemove` and `mouseup`
+                    document.removeEventListener('mousemove', mouseMoveHandler);
+                    document.removeEventListener('mouseup', mouseUpHandler);
+                };
+
+                // Attach the handler
+                resizer.addEventListener('mousedown', mouseDownHandler);
+                                
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="container__top">Top</div>
+        <div class="resizer" id="dragMe"></div>
+        <div class="container__bottom">Bottom</div>
+    </div>
+
+    <div id="info"></div>
+</body>
+</html>

@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <menu-title></menu-title>
+    <script type="text/javascript" src="/ui/jquery-1.12.4.min.js"></script>
+
+    <style>
+        .menu {
+            margin: 3em auto;
+            max-width: 600px;
+            overflow:hidden;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .menu-option {
+            float:left;
+            position: relative;
+            margin-bottom: 1px;
+        }
+
+       .menu-title, .menu-items {
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            transition: all 0.1s;
+       }
+
+        .menu-title, .menu-btn, .menu-img {
+            background: #fff;
+            /*padding: 0px 0px 0px 5px;*/
+            padding: 0px 0px 0px 5px;
+            display: block;
+            color: black;
+            border: none;
+            border-left: 1px solid transparent;
+            border-top: 1px solid transparent;
+            border-bottom: 1px solid #efecec;
+            margin-left: 10px;
+            /*margin-right: 10px;*/
+        }
+              
+            .menu-title span, .menu-btn span, .menu-img span {
+                position: absolute;
+                padding: 8px 5px 0px 5px;
+                vertical-align: middle;
+            }
+
+            .menu-title img, .menu-btn img, .menu-img img {
+                margin-top: 4px;
+            }
+           
+            .menu-title:hover, .menu-btn:hover {
+                border-left: 1px solid #efecec;
+                border-top: 1px solid #efecec;
+                box-shadow: 0px 0px 1px 1px #86c9fa;
+                cursor: pointer;
+            }
+           .menu-img:hover {
+                cursor: pointer;
+            }
+
+            .menu-title:before {
+                /*menu-items: '\003E';*/
+                content: "\276F";
+                font-size: 9px;
+                position: absolute;
+                right: 1.25em;
+                top: 1.25em;
+                color: #000;
+                transition: all 0.2s;
+                transform: rotate(90deg) !important;
+            }
+
+        .menu-items {
+            max-height: 0;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+            .menu-items > div {
+                margin: 0;
+                padding: 0.2em;
+                font-family: Tahoma;
+                font-size: 14px;
+                line-height: 1.4em;
+                text-indent: 25px;
+            }
+            
+            .menu-items >div:hover {
+                    background-color: #c7e5f2;
+                    cursor: pointer;
+                    /*box-shadow: 3px 3px 6px #ddd, -3px 3px 6px #86c9fa;*/
+            }
+
+        .menu-toggle:checked + .menu-title, .menu-toggle:checked + .menu-title + .menu-items {
+            border-bottom: 1px solid transparent;
+            box-shadow: 3px 3px 6px #ddd, -3px 3px 6px #ddd;
+        }
+
+            .menu-toggle:checked + .menu-title + .menu-items {
+                max-height: 500px;
+            }
+
+            .menu-toggle:checked + .menu-title:before {
+                transform: rotate(270deg) !important;
+            }
+
+        .menu-title:hover > .menu-toggle:checked {
+            display: none;
+        }
+        .separate {
+            border-bottom:1px solid #ddd;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('.menu>.menu-option>.menu-items>div').click(function () {
+                var c = this.parentElement.parentElement.children[0].id;
+                $('#' + c).click();
+              
+            });
+            $('#id-alarm').click(function () {
+                //test
+                enable_admin(false);
+            });
+        
+            $('.menu>.menu-option>.menu-btn').click(function () {
+                 this.style.display = "none";
+                 document.getElementById('login-pass').style.display = "block";
+            });
+            //test
+            $('#sign-out').click(function () {
+                document.getElementById('login-pass').style.display = "none";
+                document.getElementById('btn-login').style.display = "block";
+             
+            });
+            function enable_admin(visible) {
+                $(".admin").each(function () {
+                    if (visible) {
+                        $(this).css("display", "block");
+                    } else {
+                        $(this).css("display", "none");
+                    }
+                 });
+            }
+          
+            function clear_all(id) {
+                $(".menu-toggle").each(function () {
+                    var eid = $(this).attr('id');
+                    if (eid != id) {
+                        if ($(this).prop("checked") == true) {
+                            $(this).click();
+                        }
+                    }
+                    //if (!$(this).is("#menu-toggle2")) {
+                    //    alert($(this).attr("checked"));
+                    //};
+                });
+            }
+            $('.menu>.menu-option>.menu-toggle').click(function () {
+              /*  alert(this.checked);*/
+                clear_all(this.id);
+            });
+            
+
+            //$('.menu').parent('.accordion').find('> *').
+            //$('.menu-list > li > .menu-menu-items').hide();
+
+            //$('.menu-list > li').click(function () {
+            //    if ($(this).hasClass("active")) {
+            //        $(this).removeClass("active").find(".menu-menu-items").slideUp();
+            //    } else {
+            //        $(".menu-list > li.active .menu-menu-items").slideUp();
+            //        $(".menu-list > li.active").removeClass("active");
+            //        $(this).addClass("active").find(".menu-menu-items").slideDown();
+            //    }
+            //    return false;
+            //});
+
+        });
+
+        //$('li.requirement').hover(function () {
+        //    $(this).find('span').show();
+        //}, function () {
+        //    $(this).find('span').hide();
+        //});
+
+         //var item = { index: vi, value: val};
+         //$(this).trigger('menu-selected', item); //callback
+    
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <h1>CSS Only menu</h1>
+
+        <div class="menu">
+            <div class="menu-option" style="width:140px;">
+                <input type="checkbox" id="menu-toggle1" class="menu-toggle" />
+                <label class="menu-title" for="menu-toggle1">
+                    <img src="../icons/add.png" width="26" height="26" /><span>Document</span>
+                </label>
+
+                <div class="menu-items" style="width:220px; margin-left:10px;">
+                    <div>Lorem</div>
+                    <div>Consectetur adipiscing</div>
+                    <div class="separate">Sed do eiusmod</div>
+                    <div>Lmagna aliqua. Ut enim</div>
+                    <div>Nostrud exercitation</div>
+                </div>
+            </div>
+
+            <div class="menu-option" style="width:110px; ">
+                <input type="checkbox" id="menu-toggle2" class="menu-toggle" />
+                <label class="menu-title" for="menu-toggle2">
+                    <img src="../icons/zoom.png" width="26" height="26" /><span>Read</span>
+                </label>
+                <div class="menu-items" style="width: 200px; margin-left: -40px;">
+                    <div>Lorem ipsum dolor</div>
+                    <div>Consectetur adipiscing</div>
+                    <div>Sed do eiusmod</div>
+                    <div>Lmagna aliqua. Ut enim</div>
+                    <div>Nostrud exercitation</div>
+                </div>
+            </div>
+
+            <div class="menu-option" style="width:110px;">
+                <input type="checkbox" id="menu-toggle3" class="menu-toggle" />
+                <label class="menu-title" for="menu-toggle3">
+                    <img src="/icons/folder.png" width="26" height="26" /><span>Files</span>
+                </label>
+                <div class="menu-items" style="width: 240px; float: right;  ">
+                    <div class="separate">โครงการ Project</div>
+                    <div>แผนก Division</div>
+                    <div>ตำแหน่ง Position</div>
+                    <div class="separate">บุคลากร Personal</div>
+                    <div>ประเภทเอกสาร Group</div>
+                    <div>Nostrud exercitation</div>
+                </div>
+            </div>
+
+            <div class="menu-option" >
+                <label id="id-alarm" class="menu-img" style="width:40px;">
+                    <img src="/icons/no-alarm.png" width="26" height="26" /><span></span>
+                </label>
+            </div>
+            <div class="menu-option" style="display:block; ">
+                <label id="btn-login" class="menu-btn" style="width:60px;">
+                    <img src="" width="0" height="26" /><span>Login</span>
+                </label>
+            </div>
+
+            <div id="login-pass" class="menu-option" style="width:110px; display:none; ">
+                <input type="checkbox" id="menu-toggle4" class="menu-toggle" />
+                <label class="menu-title" for="menu-toggle4">
+                    <img src="/icons/nopic.png" width="26" height="26" /><span>login</span>
+                </label>
+                <div class="menu-items" style="width: 240px; float: right;  ">
+                    <div>User Profiles</div>
+                    <div class="separate">Document Rights</div>
+                    <div class="admin">Add User</div>
+                    <div class="admin separate">Member Account</div>
+                    <div class="admin">Menu Security</div>
+                    <div class="admin separate">User Authority</div>
+                    <div class="admin">Reset Password</div>
+                    <div class="admin separate">Company Profile</div>
+                    <div id="sign-out">Sign Out</div>
+                </div>
+            </div>
+
+        </div>
+</div>
+</body>
+</html>

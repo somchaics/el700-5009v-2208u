@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript" src="/ui/jquery-1.12.4.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .centered {
+            width: 300px;
+            margin: auto;
+        }
+
+        .styled-checkbox {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .styled-checkbox + label {
+            position: relative;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .styled-checkbox + label:before {
+            content: '';
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: text-top;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: dotted 1px red;
+        }
+
+            .styled-checkbox:hover + label:before {
+                background: #f35429;
+            }
+
+            .styled-checkbox:focus + label:before {
+                box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+            }
+
+            .styled-checkbox:checked + label:before {
+                background: #f35429;
+            }
+
+            .styled-checkbox:disabled + label {
+                color: #b8b8b8;
+                cursor: auto;
+            }
+
+                .styled-checkbox:disabled + label:before {
+                    box-shadow: none;
+                    background: #ddd;
+                }
+                          
+                .styled-checkbox:checked + label:after {
+                    content: '';
+                    position: absolute;
+                    left: 5px;
+                    top: 9px;
+                    background: white;
+                    width: 2px;
+                    height: 2px;
+                    box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+                    transform: rotate(45deg);
+            }
+    </style>
+
+    <script>
+       
+        function f_int() {
+           
+          //alert($("#styled-checkbox-1").prop('value'));
+          //alert(document.getElementById("styled-checkbox-1").value);
+
+            $("#styled-checkbox-1").change(function () {
+                  if (this.checked) {
+                      alert("I am checked");
+                      //this.removeClass('styled-checkbox');
+                      //this.addClass('styled-uncheckbox');
+                 } else {
+                      alert("I am un checked");
+                      //this.removeClass('styled-uncheckbox');
+                      //this.addClass('styled-checkbox');
+                }
+           
+            });
+        }
+
+
+        $(document).ready(function () {
+            
+            //const checkbox = document.getElementsByName('check');
+
+            //checkbox.forEach(function (checkitem) {
+            //    var value = checkitem.value;
+            //    checkitem.addEventListener('change', (event) => {
+            //        alert(value);
+            //    })
+            //});
+            f_int();
+
+        });
+    </script>
+</head>
+<body>
+
+
+    <div>
+        <input class="styled-checkbox" id="styled-checkbox-1"  type="checkbox" value="value1" >
+        <label for="styled-checkbox-1">Checkbox</label>
+    </div>
+    <div>
+        <input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" checked >
+        <label for="styled-checkbox-2">CSS Only</label>
+    </div>
+    <div>
+        <input class="styled-checkbox" id="styled-checkbox-3" type="checkbox" value="value3" disabled>
+        <label for="styled-checkbox-3">A disabled checkbox</label>
+    </div>
+    <div>
+        <input class="styled-checkbox" id="styled-checkbox-4" type="checkbox" value="value4">
+        <label for="styled-checkbox-4">Fourth option</label>
+    </div>
+
+  
+
+</body>
+</html>

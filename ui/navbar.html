@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <navbar-title></navbar-title>
+    <script type="text/javascript" src="/ui/jquery-1.12.4.min.js"></script>
+
+    <style>
+       /* h1 {
+            text-align: center;
+            margin: 1.5em 0 0;
+            font-size: 3em;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 2px #666;
+        }*/
+
+        .navbar {
+            margin: 3em auto;
+            max-width: 20em;
+        }
+
+        .navbar-toggle {
+            display: none;
+        }
+
+        .navbar-option {
+            position: relative;
+            margin-bottom: 1px;
+        }
+
+        .navbar-title, .navbar-items {
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            transition: all 0.2s;
+        }
+
+        .navbar-title {
+            background: #fff;
+            padding: 4px 5px 0px 5px;
+            display: block;
+            color: black;
+            border: none;
+            border-bottom: 1px solid #efecec;
+        }
+
+            .navbar-title span {
+                position: absolute;
+                margin: 8px 5px 0px 5px;
+                vertical-align: middle;
+            }
+
+            .navbar-title img {
+                margin-top: 0px;
+            }
+
+            .navbar-title:hover {
+                box-shadow: 0px 0px 1px 1px #86c9fa;
+                cursor: pointer;
+            }
+
+            .navbar-title:before {
+                /*navbar-items: '\003E';*/
+               content: "\276F";
+                font-size: 9px;
+                position: absolute;
+                right: 1.25em;
+                top: 1.25em;
+                color: #000;
+                transition: all 0.2s;
+            }
+
+        .navbar-items {
+            max-height: 0;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+            .navbar-items div {
+                margin: 0;
+                padding: 0.5em;
+                font-family:Tahoma;
+                font-size: 14px;
+                line-height: 1.5em;
+                text-indent: 25px;
+            }
+                .navbar-items div:hover {
+                    background-color: #c7e5f2;
+                    /*box-shadow: 3px 3px 6px #ddd, -3px 3px 6px #86c9fa;*/
+                }
+
+           .navbar-toggle:checked + .navbar-title, .navbar-toggle:checked + .navbar-title + .navbar-items {
+                box-shadow: 3px 3px 6px #ddd, -3px 3px 6px #ddd;
+            }
+
+            .navbar-toggle:checked + .navbar-title + .navbar-items {
+                max-height: 500px;
+            }
+
+            .navbar-toggle:checked + .navbar-title:before {
+                transform: rotate(90deg) !important;
+            }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('.navbar>.navbar-option>.navbar-items>div').click(function () {
+                var c=this.parentElement.parentElement.children[0].id;
+                $('#'+c).click();
+                //$( '#navbar-toggle1').click();
+              
+                      //this.checked = !this.checked;
+               
+            });
+            //$('.NavBar-list > li > .navbar-navbar-items').hide();
+
+            //$('.NavBar-list > li').click(function () {
+            //    if ($(this).hasClass("active")) {
+            //        $(this).removeClass("active").find(".navbar-navbar-items").slideUp();
+            //    } else {
+            //        $(".NavBar-list > li.active .navbar-navbar-items").slideUp();
+            //        $(".NavBar-list > li.active").removeClass("active");
+            //        $(this).addClass("active").find(".navbar-navbar-items").slideDown();
+            //    }
+            //    return false;
+            //});
+
+        });
+
+        //$('li.requirement').hover(function () {
+        //    $(this).find('span').show();
+        //}, function () {
+        //    $(this).find('span').hide();
+        //});
+
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <h1>CSS Only navbar</h1>
+
+        <div class="navbar">
+
+            <div class="navbar-option">
+                
+                <input type="checkbox" id="navbar-toggle1" class="navbar-toggle" />
+                <label class="navbar-title" for="navbar-toggle1">
+                    <img src="../icons/appc.png" width="26" height="26" /><span>Well, hello there</span>
+               </label>
+
+                <div class="navbar-items">
+                    <div>Lorem ipsum dolor </div>
+                    <div>Consectetur adipiscing</div>
+                    <div>Sed do eiusmod</div>
+                    <div>Lmagna aliqua. Ut enim</div>
+                    <div>Nostrud exercitation</div>
+                </div>
+            </div>
+
+            <div class="navbar-option">
+                <input type="checkbox" id="navbar-toggle2" class="navbar-toggle" />
+                <label class="navbar-title" for="navbar-toggle2">
+                    <img src="../icons/appc.png" width="26" height="26" style="visibility:collapse;" /><span>We Are Leader</span>
+                </label>
+                <div class="navbar-items">
+                    <div>Lorem ipsum dolor </div>
+                    <div>Consectetur adipiscing</div>
+                    <div>Sed do eiusmod</div>
+                    <div>Lmagna aliqua. Ut enim</div>
+                    <div>Nostrud exercitation</div>
+                </div>
+            </div>
+
+            <div class="navbar-option">
+                <input type="checkbox" id="navbar-toggle3" class="navbar-toggle" />
+                <label class="navbar-title" for="navbar-toggle3">
+                    <img src="/icons/star.png" width="26" height="26" style="visibility:visible;" /><span>Let's get started</span>
+                </label>
+                <div class="navbar-items">
+                    <div>Lorem ipsum dolor </div>
+                    <div>Consectetur adipiscing</div>
+                    <div>Sed do eiusmod</div>
+                    <div>Lmagna aliqua. Ut enim</div>
+                    <div>Nostrud exercitation</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
